@@ -9,15 +9,71 @@
     <!-- Babel Script -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <script type="text/jsx">
-      const domNode = document.getElementByID("app");
-      const root = ReactDOM.createRoot(domNode);
-      root.render(<h1>Develop. Preview. Ship.</h1>);
+    <script type="text/babel">
+      const app = document.getElementById("app");
+
+      /*// This function  is a component :)*/
+      function Header({ title }) {
+        console.log(title); /*// {title: "React"} - this is an object.*/
+        return <h1>{title}</h1>;
+      }
+
+      /*//also a component*/
+      function HomePage() {
+        const names = ["Ada Lovelace", "Grace Hopper", "Margaret Hamilton"];
+
+        const [likes, setLikes] = React.useState(0); //the first item in the array is the state 'value', which we named 'likes' here.
+        //second item in array is a function to update the value. named 'setLikes' here
+        // we set the initial value of likes to 0 here.
+
+        function handleClick() {
+          setLikes(likes + 1);
+          //console.log("increment like count");
+        }
+
+        return (
+          <div>
+            <Header title="Develop. Preview. Ship." />
+            <ul>
+              {names.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+            <button onClick={handleClick}>Like ({likes})</button>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(app);
+      root.render(<HomePage />);
     </script>
   </body>
 </html>
 
-<!-- old work - updating the DOM with straight-up JavaScript
+<!-- OLD WORK --------------------------------------------------------- 
+updating the DOM using React but no components:
+<html>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/jsx">
+      const domNode = document.getElementById("app");
+      const root = ReactDOM.createRoot(domNode);
+      root.render(<h1>Develop. Preview. Ship.</h1>);
+    </script>
+  </body>
+</html> 
+
+
+
+
+
+---------------------------------------------------------------------
+updating the DOM with straight-up JavaScript
 
       <script type="text/javascript"></script>
       
